@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gold & Time — goldandtime.ru
 
-## Getting Started
+Лендинг и интернет-магазин эксклюзивных часов и ювелирных украшений.
 
-First, run the development server:
+**Стек:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 · Framer Motion · Docker.
+
+---
+
+## Локальная разработка
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откроется на http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production-сборка
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Docker
 
-To learn more about Next.js, take a look at the following resources:
+Образ — multi-stage Alpine со standalone-выводом Next.js. На сервере приложение слушает только `127.0.0.1:3010`, наружу проксируется через nginx.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+docker compose build
+docker compose up -d
+docker compose logs -f web
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Healthcheck встроен в Dockerfile (`wget http://127.0.0.1:3000/`).
 
-## Deploy on Vercel
+## Деплой на сервер
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Сервер: `194.67.101.80`, каталог: `/home/goldandtime.ru`. Репозиторий — `git@github.com:studygeorge/goldandtime.git`, доступ по SSH-ключу `/root/.ssh/goldandtime_deploy`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Один шаг:
+
+```bash
+ssh root@194.67.101.80
+cd /home/goldandtime.ru
+./deploy.sh
+```
+
+Что делает `deploy.sh`:
+
+1. `git pull --ff-only`
+2. `docker compose build --pull`
+3. `docker compose up -d --remove-orphans`
+4. чистка устаревших образов
+
+## Архитектура на сервере
+
+```
+                ┌─────────────────────┐
+   :443/:80 ──▶│  nginx (host)        │
+                │  goldandtime.ru →    │
+                │  proxy_pass 3010     │
+                └─────────┬───────────┘
+                          │ 127.0.0.1:3010
+                ┌─────────▼───────────┐
+                │  goldandtime-web     │
+                │  Docker · Next.js    │
+                └─────────────────────┘
+```
+
+## Структура
+
+```
+src/
+  app/
+    layout.tsx       — root layout, шрифты, metadata
+    page.tsx         — главная (собирает секции)
+    globals.css      — токены золотой темы, утилиты, анимации
+  components/
+    Header.tsx       — фикс. шапка, мобильное меню
+    Hero.tsx         — первый экран, hero
+    Collections.tsx  — три категории
+    Showcase.tsx     — карточки часов и украшений
+    About.tsx        — о бренде, четыре столпа
+    Contact.tsx      — форма обратной связи
+    Footer.tsx       — подвал
+```
