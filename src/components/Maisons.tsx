@@ -25,7 +25,7 @@ export function Maisons() {
   return (
     <section
       id="maisons"
-      className="relative scroll-mt-24 overflow-hidden border-y border-line bg-cream/60 py-16 md:py-20"
+      className="relative scroll-mt-24 overflow-hidden border-y border-line bg-cream/45 py-14 md:py-20"
     >
       <motion.div
         initial={{ opacity: 0 }}
@@ -34,28 +34,27 @@ export function Maisons() {
         transition={{ duration: 0.9 }}
         className="mb-10 md:mb-14 flex flex-col items-center text-center px-6"
       >
-        <span className="eyebrow text-gold-deep">Дома · Maisons</span>
-        <h2 className="font-display mt-4 text-3xl md:text-5xl text-graphite">
-          Авторизованный <span className="italic text-gold-gradient">selector</span>
+        <span className="eyebrow text-graphite/70">Дома · Maisons</span>
+        <h2 className="section-h mt-4 text-graphite">
+          Авторизованный selector
         </h2>
         <p className="mt-5 max-w-xl text-sm md:text-base leading-relaxed text-graphite/65">
           Подлинные изделия со сквозной историей владельцев и сертификатами
-          мануфактур. Аукционные лоты, лимитированные серии,
-          винтаж&nbsp;NOS.
+          мануфактур. Аукционные лоты, лимитированные серии, винтаж&nbsp;NOS.
         </p>
       </motion.div>
 
       <div className="relative">
         <div className="absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-cream to-transparent pointer-events-none" />
         <div className="absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-cream to-transparent pointer-events-none" />
-        <div className="flex marquee-track gap-12 md:gap-20">
+        <div className="flex marquee-track gap-12 md:gap-16">
           {items.map((m, i) => (
             <span
               key={`${m}-${i}`}
-              className="font-display whitespace-nowrap text-3xl md:text-5xl lg:text-6xl text-graphite/65 hover:text-gold-gradient transition-colors"
+              className="whitespace-nowrap text-2xl md:text-4xl lg:text-5xl text-graphite/85 hover:text-graphite transition-colors flex items-center gap-12 md:gap-16 font-light tracking-tight"
             >
               {m}
-              <span className="ml-12 md:ml-20 text-gold/50">·</span>
+              <span className="gold-mark" />
             </span>
           ))}
         </div>

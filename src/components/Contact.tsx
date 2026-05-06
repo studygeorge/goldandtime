@@ -17,9 +17,9 @@ export function Contact() {
           className="card-luxe p-10 md:p-16"
         >
           <div className="flex flex-col items-center text-center">
-            <span className="eyebrow text-gold-deep">Контакты</span>
-            <h2 className="font-display section-h mt-4 text-graphite">
-              Личная <span className="italic text-gold-gradient">встреча</span>
+            <span className="eyebrow text-graphite/70">Контакты</span>
+            <h2 className="section-h mt-4 text-graphite">
+              Личная встреча
             </h2>
             <p className="mt-6 max-w-xl text-sm md:text-base leading-relaxed text-graphite/70">
               Оставьте контакты — наш консьерж свяжется с вами в течение
@@ -42,11 +42,11 @@ export function Contact() {
               <FieldArea label="Что вас интересует" name="message" />
             </div>
             <div className="md:col-span-2 flex flex-col items-center gap-4 mt-2">
-              <button type="submit" className="btn-gold">
+              <button type="submit" className="btn-solid">
                 Записаться на просмотр
               </button>
               {status === "ok" && (
-                <p className="text-[0.78rem] uppercase tracking-[0.22em] text-gold-deep">
+                <p className="text-[0.78rem] uppercase tracking-[0.22em] text-graphite">
                   Спасибо · мы свяжемся с вами
                 </p>
               )}
@@ -57,7 +57,7 @@ export function Contact() {
           </form>
         </motion.div>
 
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-5 text-center">
           <InfoBlock label="Telegram" value="@goldandtime" href="https://t.me/goldandtime" />
           <InfoBlock label="WhatsApp" value="+7 999 000-00-00" href="https://wa.me/79990000000" />
           <InfoBlock label="E-mail" value="atelier@goldandtime.ru" href="mailto:atelier@goldandtime.ru" />
@@ -82,14 +82,14 @@ function Field({
     <label className="block">
       <span className="block text-[0.65rem] uppercase tracking-[0.28em] text-graphite/55">
         {label}
-        {required && <span className="text-gold-deep"> *</span>}
+        {required && <span className="text-graphite"> *</span>}
       </span>
       <input
         name={name}
         type={type}
         required={required}
         autoComplete="off"
-        className="mt-2 w-full border-b border-line bg-transparent py-2.5 text-base text-graphite placeholder:text-graphite/30 outline-none transition-colors focus:border-gold-deep"
+        className="mt-2 w-full border-b border-line bg-transparent py-2.5 text-base text-graphite placeholder:text-graphite/30 outline-none transition-colors focus:border-graphite"
       />
     </label>
   );
@@ -104,7 +104,7 @@ function FieldArea({ label, name }: { label: string; name: string }) {
       <textarea
         name={name}
         rows={3}
-        className="mt-2 w-full resize-none border-b border-line bg-transparent py-2.5 text-base text-graphite placeholder:text-graphite/30 outline-none transition-colors focus:border-gold-deep"
+        className="mt-2 w-full resize-none border-b border-line bg-transparent py-2.5 text-base text-graphite placeholder:text-graphite/30 outline-none transition-colors focus:border-graphite"
       />
     </label>
   );
@@ -122,12 +122,14 @@ function InfoBlock({
   return (
     <a
       href={href}
-      className="block rounded-sm border border-line bg-ivory/60 p-6 transition-all duration-500 hover:border-gold-deep/50 hover:bg-cream/60"
+      className="block border border-line bg-ivory/60 p-6 transition-all duration-300 hover:border-graphite hover:bg-ivory"
     >
-      <div className="text-[0.65rem] uppercase tracking-[0.28em] text-gold-deep">
+      <div className="text-[0.65rem] uppercase tracking-[0.28em] text-graphite/65">
         {label}
       </div>
-      <div className="font-display mt-2 text-xl text-graphite">{value}</div>
+      <div className="mt-2 text-lg text-graphite font-medium tracking-tight">
+        {value}
+      </div>
     </a>
   );
 }

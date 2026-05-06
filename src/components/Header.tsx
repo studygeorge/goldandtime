@@ -26,34 +26,32 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "backdrop-blur-md bg-ivory/85 border-b border-line shadow-[0_1px_30px_-12px_rgba(26,22,18,0.12)]"
+          ? "backdrop-blur-md bg-ivory/90 border-b border-line"
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:py-5">
+      <div className="mx-auto flex max-w-[110rem] items-center justify-between px-6 md:px-10 py-4 md:py-5">
         <Link
           href="/"
-          className="font-display text-xl md:text-2xl tracking-[0.18em] text-gold-gradient"
+          className="flex items-center gap-2 text-sm md:text-base tracking-[0.22em] uppercase text-graphite font-medium"
         >
+          <span className="gold-mark" />
           GOLD &amp; TIME
         </Link>
 
-        <nav className="hidden md:flex items-center gap-9">
+        <nav className="hidden md:flex items-center gap-8">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-[0.78rem] uppercase tracking-[0.2em] text-graphite/70 transition-colors hover:text-gold-deep"
+              className="text-[0.72rem] uppercase tracking-[0.22em] text-graphite/75 transition-colors hover:text-graphite"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <a
-          href="#contact"
-          className="hidden md:inline-flex btn-ghost"
-        >
+        <a href="#contact" className="hidden md:inline-flex btn-ghost">
           Записаться
         </a>
 
@@ -77,12 +75,12 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="text-sm uppercase tracking-[0.2em] text-graphite/80 hover:text-gold-deep"
+                className="text-sm uppercase tracking-[0.22em] text-graphite/85 hover:text-graphite"
               >
                 {item.label}
               </a>
             ))}
-            <a href="#contact" className="btn-gold mt-2 self-start" onClick={() => setOpen(false)}>
+            <a href="#contact" className="btn-solid mt-2 self-start" onClick={() => setOpen(false)}>
               Записаться
             </a>
           </div>

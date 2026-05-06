@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Fira_Code } from "next/font/google";
 import "./globals.css";
 
-const display = Cormorant_Garamond({
-  variable: "--font-display",
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin", "cyrillic"],
-});
-
-const body = Inter({
-  variable: "--font-body",
+const fira = Fira_Code({
+  variable: "--font-mono",
   weight: ["300", "400", "500", "600"],
   subsets: ["latin", "cyrillic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,18 +16,20 @@ export const metadata: Metadata = {
     template: "%s · Gold & Time",
   },
   description:
-    "Эксклюзивные часы и украшения ручной работы. Авторские коллекции, лимитированные модели, безупречное качество.",
+    "Эксклюзивные часы и украшения. Rolex, Patek Philippe, Audemars Piguet, Cartier, Bulgari, Van Cleef & Arpels — в наличии и под заказ.",
   keywords: [
     "эксклюзивные часы",
     "украшения",
     "ювелирные изделия",
     "luxury",
-    "лимитированная коллекция",
+    "Rolex",
+    "Patek Philippe",
+    "Cartier",
   ],
   openGraph: {
     title: "Gold & Time — эксклюзивные часы и украшения",
     description:
-      "Авторские коллекции часов и ювелирных украшений. Лимитированные модели.",
+      "Rolex, Patek Philippe, Audemars Piguet, Cartier, Bulgari, Van Cleef & Arpels — в наличии и под заказ.",
     url: "https://goldandtime.ru",
     siteName: "Gold & Time",
     locale: "ru_RU",
@@ -50,10 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ru"
-      className={`${display.variable} ${body.variable} h-full antialiased`}
-    >
+    <html lang="ru" className={`${fira.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-graphite">
         {children}
       </body>
