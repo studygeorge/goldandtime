@@ -13,10 +13,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-wrap gap-x-10 gap-y-3 text-[0.7rem] uppercase tracking-[0.24em] text-champagne/60">
-          <a href="#collections" className="hover:text-gold">Коллекции</a>
+          <a href="#maisons" className="hover:text-gold">Дома</a>
           <a href="#watches" className="hover:text-gold">Часы</a>
           <a href="#jewelry" className="hover:text-gold">Украшения</a>
-          <a href="#about" className="hover:text-gold">О бренде</a>
+          <a href="#about" className="hover:text-gold">Atelier</a>
           <a href="#contact" className="hover:text-gold">Контакты</a>
         </div>
       </div>

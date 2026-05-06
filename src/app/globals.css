@@ -107,6 +107,44 @@ body {
 }
 .ring-spin { animation: ring-spin 28s linear infinite; }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 50s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-fade {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.ticker-fade { animation: ticker-fade 4s ease-in-out infinite; }
+
+.hero-text {
+  font-size: clamp(3.2rem, 11vw, 12rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+}
+.section-h {
+  font-size: clamp(2.4rem, 6.5vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+}
+.eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
 @keyframes glow-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.45); }
   50% { box-shadow: 0 0 28px 4px rgba(212, 175, 55, 0.25); }

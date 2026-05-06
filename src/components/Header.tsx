@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV = [
-  { href: "#collections", label: "Коллекции" },
+  { href: "#maisons", label: "Дома" },
   { href: "#watches", label: "Часы" },
   { href: "#jewelry", label: "Украшения" },
-  { href: "#about", label: "О бренде" },
+  { href: "#about", label: "Atelier" },
   { href: "#contact", label: "Контакты" },
 ];
 
