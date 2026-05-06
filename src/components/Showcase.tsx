@@ -140,22 +140,46 @@ const JEWELRY: Piece[] = [
 ];
 
 function WatchIllustration({ tone }: { tone: Piece["tone"] }) {
-  const ring = tone === "cool" ? "from-[#cdd6e1]/30 via-[#a8b3c1]/15 to-transparent"
-    : tone === "rose" ? "from-[#e2b08a]/30 via-[#c08465]/15 to-transparent"
-    : "from-gold/30 via-gold/10 to-transparent";
-  const hand = tone === "cool" ? "bg-[#e7ecf3]" : tone === "rose" ? "bg-[#f5cdb3]" : "bg-gold";
+  const ring =
+    tone === "cool"
+      ? "from-[#9aa7b8]/35 via-[#c8d0db]/25 to-[#f0e8d6]/40"
+      : tone === "rose"
+        ? "from-[#c08465]/30 via-[#e2b08a]/25 to-[#f5e1d2]/40"
+        : "from-[#a07c1f]/35 via-[#d4af37]/25 to-[#f0e8d6]/40";
+  const dial =
+    tone === "cool"
+      ? "bg-[#f4f6fa]"
+      : tone === "rose"
+        ? "bg-[#fbece1]"
+        : "bg-[#fbf6e8]";
+  const hand =
+    tone === "cool"
+      ? "bg-[#3a4456]"
+      : tone === "rose"
+        ? "bg-[#7a4831]"
+        : "bg-[#5a4612]";
+  const tick =
+    tone === "cool"
+      ? "bg-[#3a4456]/55"
+      : tone === "rose"
+        ? "bg-[#7a4831]/55"
+        : "bg-[#5a4612]/55";
   return (
     <div className="relative h-[78%] w-[78%]">
       <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${ring}`} />
-      <div className="absolute inset-[5%] rounded-full border border-gold/30 ring-spin" />
-      <div className="absolute inset-[14%] rounded-full bg-noir border border-line shadow-[inset_0_0_80px_rgba(212,175,55,0.18)]" />
-      <div className={`absolute left-1/2 top-1/2 h-[3px] w-[36%] -translate-x-1/2 -translate-y-1/2 origin-left ${hand} rotate-[35deg] rounded-full`} />
-      <div className="absolute left-1/2 top-1/2 h-[2px] w-[28%] -translate-x-1/2 -translate-y-1/2 origin-left bg-champagne/85 rotate-[110deg] rounded-full" />
-      <div className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_14px_rgba(212,175,55,0.85)]" />
+      <div className="absolute inset-[5%] rounded-full border border-gold-deep/30 ring-spin" />
+      <div className={`absolute inset-[14%] rounded-full ${dial} border border-line shadow-[inset_0_0_60px_rgba(184,134,11,0.18),0_8px_24px_-8px_rgba(26,22,18,0.18)]`} />
+      <div
+        className={`absolute left-1/2 top-1/2 h-[3px] w-[34%] -translate-x-1/2 -translate-y-1/2 origin-left ${hand} rotate-[35deg] rounded-full`}
+      />
+      <div
+        className={`absolute left-1/2 top-1/2 h-[2px] w-[26%] -translate-x-1/2 -translate-y-1/2 origin-left ${hand} opacity-80 rotate-[110deg] rounded-full`}
+      />
+      <div className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold-deep shadow-[0_0_10px_rgba(184,134,11,0.65)]" />
       {Array.from({ length: 60 }).map((_, idx) => (
         <span
           key={idx}
-          className="absolute left-1/2 top-1/2 block w-px origin-bottom bg-champagne/30"
+          className={`absolute left-1/2 top-1/2 block w-px origin-bottom ${tick}`}
           style={{
             height: idx % 5 === 0 ? "10px" : "4px",
             transform: `translate(-50%, -50%) rotate(${idx * 6}deg) translateY(-43%)`,
@@ -167,29 +191,35 @@ function WatchIllustration({ tone }: { tone: Piece["tone"] }) {
 }
 
 function JewelIllustration({ tone }: { tone: Piece["tone"] }) {
-  const stop = tone === "cool" ? "#dfe6f0"
-    : tone === "rose" ? "#f7d4ba"
-    : "#f7e7ce";
+  const stop =
+    tone === "cool" ? "#dbe1ec" : tone === "rose" ? "#f7d4ba" : "#f7e7ce";
+  const ringStop1 =
+    tone === "cool" ? "#9aa7b8" : tone === "rose" ? "#c08465" : "#a07c1f";
   return (
     <div className="relative h-[78%] w-[78%]">
-      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(247,231,206,0.15)_0%,transparent_60%)]" />
+      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(232,217,189,0.35)_0%,transparent_60%)]" />
       <svg viewBox="0 0 220 220" className="h-full w-full">
         <defs>
           <linearGradient id={`g-${tone}`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#e8c668" />
+            <stop offset="0%" stopColor={ringStop1} />
             <stop offset="50%" stopColor={stop} />
-            <stop offset="100%" stopColor="#a07c1f" />
+            <stop offset="100%" stopColor="#8a651a" />
           </linearGradient>
           <radialGradient id={`gem-${tone}`} cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
             <stop offset="40%" stopColor={stop} stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#a07c1f" stopOpacity="0.7" />
+            <stop offset="100%" stopColor={ringStop1} stopOpacity="0.7" />
           </radialGradient>
         </defs>
-        <g fill="none" stroke={`url(#g-${tone})`} strokeWidth="1.2" strokeLinecap="round">
+        <g
+          fill="none"
+          stroke={`url(#g-${tone})`}
+          strokeWidth="1.4"
+          strokeLinecap="round"
+        >
           <ellipse cx="110" cy="125" rx="72" ry="38" />
-          <ellipse cx="110" cy="125" rx="50" ry="26" opacity="0.65" />
-          <ellipse cx="110" cy="125" rx="30" ry="14" opacity="0.4" />
+          <ellipse cx="110" cy="125" rx="50" ry="26" opacity="0.7" />
+          <ellipse cx="110" cy="125" rx="30" ry="14" opacity="0.5" />
         </g>
         <g>
           <path
@@ -198,10 +228,10 @@ function JewelIllustration({ tone }: { tone: Piece["tone"] }) {
             stroke={`url(#g-${tone})`}
             strokeWidth="0.8"
           />
-          <path d="M110 78 L94 56 L126 56 Z" fill="rgba(255,255,255,0.35)" />
-          <circle cx="110" cy="62" r="2.5" fill="#ffffff" opacity="0.85" />
-          <circle cx="50" cy="125" r="3" fill={`url(#gem-${tone})`} />
-          <circle cx="170" cy="125" r="3" fill={`url(#gem-${tone})`} />
+          <path d="M110 78 L94 56 L126 56 Z" fill="rgba(255,255,255,0.45)" />
+          <circle cx="110" cy="62" r="2.8" fill="#ffffff" opacity="0.95" />
+          <circle cx="50" cy="125" r="3.5" fill={`url(#gem-${tone})`} />
+          <circle cx="170" cy="125" r="3.5" fill={`url(#gem-${tone})`} />
         </g>
       </svg>
     </div>
@@ -229,7 +259,7 @@ function PieceCard({
       }}
       className="card-luxe group flex flex-col"
     >
-      <div className="relative aspect-[4/5] overflow-hidden border-b border-line">
+      <div className="relative aspect-[4/5] overflow-hidden border-b border-line bg-gradient-to-br from-ivory via-cream/70 to-champagne/40">
         <div
           aria-hidden
           className="absolute inset-0 flex items-center justify-center transition-transform duration-700 group-hover:scale-105"
@@ -241,39 +271,43 @@ function PieceCard({
           )}
         </div>
         {piece.badge && (
-          <span className="absolute left-5 top-5 rounded-full border border-gold/60 bg-noir/80 px-3 py-1 text-[0.62rem] uppercase tracking-[0.25em] text-gold backdrop-blur">
+          <span className="absolute left-5 top-5 rounded-full border border-gold-deep/40 bg-ivory/85 px-3 py-1 text-[0.62rem] uppercase tracking-[0.25em] text-gold-deep backdrop-blur">
             {piece.badge}
           </span>
         )}
         <div className="absolute right-5 top-5 text-right">
-          <div className="eyebrow text-champagne/45">{piece.brand}</div>
+          <div className="eyebrow text-graphite/55">{piece.brand}</div>
         </div>
       </div>
 
       <div className="flex flex-1 flex-col p-7 md:p-8">
-        <h4 className="font-display text-2xl md:text-3xl text-champagne">
+        <h4 className="font-display text-2xl md:text-3xl text-graphite">
           {piece.model}
         </h4>
-        <p className="mt-1 eyebrow text-gold/85">{piece.reference}</p>
-        <ul className="mt-5 space-y-1.5 text-[0.82rem] leading-relaxed text-champagne/65">
+        <p className="mt-1 eyebrow text-gold-deep">{piece.reference}</p>
+        <ul className="mt-5 space-y-1.5 text-[0.82rem] leading-relaxed text-graphite/70">
           <li>— {piece.metal}</li>
           <li>— {piece.detail}</li>
         </ul>
 
-        <div className="mt-auto pt-7 flex items-end justify-between border-t border-line/60">
+        <div className="mt-auto pt-7 flex items-end justify-between border-t border-line">
           <div>
-            <div className="eyebrow text-champagne/45">Стоимость</div>
+            <div className="eyebrow text-graphite/55">Стоимость</div>
             <div className="font-display mt-1 text-2xl md:text-3xl text-gold-gradient">
               {piece.price}
             </div>
           </div>
           <a
             href="#contact"
-            className="text-[0.7rem] uppercase tracking-[0.28em] text-champagne/85 transition-colors hover:text-gold flex items-center gap-2"
+            className="text-[0.7rem] uppercase tracking-[0.28em] text-graphite/80 transition-colors hover:text-gold-deep flex items-center gap-2"
           >
             Запросить
             <svg width="22" height="8" viewBox="0 0 22 8" fill="none">
-              <path d="M0 4h20m0 0L17 1m3 3l-3 3" stroke="currentColor" strokeWidth="1" />
+              <path
+                d="M0 4h20m0 0L17 1m3 3l-3 3"
+                stroke="currentColor"
+                strokeWidth="1"
+              />
             </svg>
           </a>
         </div>
@@ -295,14 +329,14 @@ export function Showcase() {
             className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8"
           >
             <div>
-              <span className="eyebrow text-gold">Часы · Horology</span>
-              <h2 className="font-display section-h mt-5 text-champagne">
+              <span className="eyebrow text-gold-deep">Часы · Horology</span>
+              <h2 className="font-display section-h mt-5 text-graphite">
                 Кабинет
                 <br />
                 <span className="italic text-gold-gradient">коллекционера</span>
               </h2>
             </div>
-            <p className="max-w-md text-sm md:text-base leading-relaxed text-champagne/65">
+            <p className="max-w-md text-sm md:text-base leading-relaxed text-graphite/70">
               Аутентифицированные образцы со всеми коробками и&nbsp;документами.
               Для каждой позиции — отчёт независимого часового эксперта.
               Цены указаны без НДС, доставка инкассацией.
@@ -336,14 +370,14 @@ export function Showcase() {
             className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8"
           >
             <div>
-              <span className="eyebrow text-gold">Украшения · Haute Joaillerie</span>
-              <h2 className="font-display section-h mt-5 text-champagne">
+              <span className="eyebrow text-gold-deep">Украшения · Haute Joaillerie</span>
+              <h2 className="font-display section-h mt-5 text-graphite">
                 Камни,
                 <br />
                 <span className="italic text-gold-gradient">которые помнят</span>
               </h2>
             </div>
-            <p className="max-w-md text-sm md:text-base leading-relaxed text-champagne/65">
+            <p className="max-w-md text-sm md:text-base leading-relaxed text-graphite/70">
               Сертификаты GIA / IGI / SSEF. Возможен trade-in
               ваших украшений с зачётом до 90% оценки. Сопровождение
               сделки нотариусом и экспертом-геммологом.

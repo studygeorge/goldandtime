@@ -24,9 +24,9 @@ export function Hero() {
         style={{ y: yBg }}
         className="pointer-events-none absolute inset-0 -z-10"
       >
-        <div className="absolute left-1/2 top-1/2 h-[80vmin] w-[80vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.22)_0%,transparent_55%)] blur-3xl" />
-        <div className="absolute right-[-15vw] top-[5vh] h-[55vmin] w-[55vmin] rounded-full bg-[radial-gradient(circle,rgba(247,231,206,0.10)_0%,transparent_70%)] blur-2xl" />
-        <div className="absolute left-[-10vw] bottom-[-10vh] h-[45vmin] w-[45vmin] rounded-full bg-[radial-gradient(circle,rgba(160,124,31,0.18)_0%,transparent_60%)] blur-3xl" />
+        <div className="absolute left-1/2 top-1/2 h-[80vmin] w-[80vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(184,134,11,0.15)_0%,transparent_55%)] blur-3xl" />
+        <div className="absolute right-[-15vw] top-[5vh] h-[55vmin] w-[55vmin] rounded-full bg-[radial-gradient(circle,rgba(232,217,189,0.55)_0%,transparent_70%)] blur-2xl" />
+        <div className="absolute left-[-10vw] bottom-[-10vh] h-[45vmin] w-[45vmin] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.18)_0%,transparent_60%)] blur-3xl" />
       </motion.div>
 
       <motion.div
@@ -39,21 +39,21 @@ export function Hero() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center gap-5"
         >
-          <span className="h-px w-16 bg-gold" />
-          <span className="eyebrow text-gold">Maison de luxe · Москва</span>
+          <span className="h-px w-16 bg-gold-deep" />
+          <span className="eyebrow text-gold-deep">Maison de luxe · Москва</span>
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="font-display hero-text mt-8 text-champagne"
+          className="font-display hero-text mt-8 text-graphite"
         >
           <span className="block">Часы &amp;</span>
           <span className="block italic text-gold-gradient -mt-2 md:-mt-4">
             украшения
           </span>
-          <span className="block text-champagne/70 font-light italic">
+          <span className="block text-graphite/70 font-light italic">
             высшего класса
           </span>
         </motion.h1>
@@ -64,9 +64,9 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.6 }}
           className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end"
         >
-          <p className="md:col-span-5 text-base md:text-lg leading-relaxed text-champagne/70 max-w-xl">
+          <p className="md:col-span-5 text-base md:text-lg leading-relaxed text-graphite/75 max-w-xl">
             Rolex, Patek Philippe, Audemars Piguet, Cartier, Bulgari,
-            Van&nbsp;Cleef&nbsp;&amp;&nbsp;Arpels — <em className="not-italic text-champagne">в наличии и под заказ</em>.
+            Van&nbsp;Cleef&nbsp;&amp;&nbsp;Arpels — <em className="not-italic text-graphite font-medium">в наличии и под заказ</em>.
             Сертифицированные коллекционные позиции от&nbsp;100&nbsp;000&nbsp;до&nbsp;500&nbsp;000&nbsp;$.
           </p>
 
@@ -102,7 +102,7 @@ export function Hero() {
               <div className="font-display text-3xl md:text-5xl text-gold-gradient">
                 {s.k}
               </div>
-              <div className="mt-2 eyebrow text-champagne/55">{s.v}</div>
+              <div className="mt-2 eyebrow text-graphite/55">{s.v}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -114,10 +114,10 @@ export function Hero() {
         transition={{ delay: 1.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="eyebrow text-champagne/45 ticker-fade">
+        <span className="eyebrow text-graphite/40 ticker-fade">
           Прокрутите ниже
         </span>
-        <div className="h-10 w-px bg-gradient-to-b from-gold/70 to-transparent" />
+        <div className="h-10 w-px bg-gradient-to-b from-gold-deep/60 to-transparent" />
       </motion.div>
     </section>
   );

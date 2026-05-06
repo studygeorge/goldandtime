@@ -17,13 +17,11 @@ export function Contact() {
           className="card-luxe p-10 md:p-16"
         >
           <div className="flex flex-col items-center text-center">
-            <span className="text-[0.7rem] uppercase tracking-[0.4em] text-gold/80">
-              Контакты
-            </span>
-            <h2 className="font-display mt-4 text-4xl md:text-6xl text-champagne">
+            <span className="eyebrow text-gold-deep">Контакты</span>
+            <h2 className="font-display section-h mt-4 text-graphite">
               Личная <span className="italic text-gold-gradient">встреча</span>
             </h2>
-            <p className="mt-6 max-w-xl text-sm md:text-base leading-relaxed text-champagne/65">
+            <p className="mt-6 max-w-xl text-sm md:text-base leading-relaxed text-graphite/70">
               Оставьте контакты — наш консьерж свяжется с вами в течение
               рабочего дня и согласует удобное время приватного показа.
             </p>
@@ -48,11 +46,11 @@ export function Contact() {
                 Записаться на просмотр
               </button>
               {status === "ok" && (
-                <p className="text-[0.78rem] uppercase tracking-[0.22em] text-gold/85">
+                <p className="text-[0.78rem] uppercase tracking-[0.22em] text-gold-deep">
                   Спасибо · мы свяжемся с вами
                 </p>
               )}
-              <p className="text-[0.65rem] uppercase tracking-[0.22em] text-champagne/40">
+              <p className="text-[0.65rem] uppercase tracking-[0.22em] text-graphite/40">
                 Отправляя форму, вы соглашаетесь с обработкой персональных данных
               </p>
             </div>
@@ -82,16 +80,16 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="block text-[0.65rem] uppercase tracking-[0.28em] text-champagne/55">
+      <span className="block text-[0.65rem] uppercase tracking-[0.28em] text-graphite/55">
         {label}
-        {required && <span className="text-gold/80"> *</span>}
+        {required && <span className="text-gold-deep"> *</span>}
       </span>
       <input
         name={name}
         type={type}
         required={required}
         autoComplete="off"
-        className="mt-2 w-full border-b border-line bg-transparent py-2.5 text-base text-champagne placeholder:text-champagne/30 outline-none transition-colors focus:border-gold"
+        className="mt-2 w-full border-b border-line bg-transparent py-2.5 text-base text-graphite placeholder:text-graphite/30 outline-none transition-colors focus:border-gold-deep"
       />
     </label>
   );
@@ -100,13 +98,13 @@ function Field({
 function FieldArea({ label, name }: { label: string; name: string }) {
   return (
     <label className="block">
-      <span className="block text-[0.65rem] uppercase tracking-[0.28em] text-champagne/55">
+      <span className="block text-[0.65rem] uppercase tracking-[0.28em] text-graphite/55">
         {label}
       </span>
       <textarea
         name={name}
         rows={3}
-        className="mt-2 w-full resize-none border-b border-line bg-transparent py-2.5 text-base text-champagne placeholder:text-champagne/30 outline-none transition-colors focus:border-gold"
+        className="mt-2 w-full resize-none border-b border-line bg-transparent py-2.5 text-base text-graphite placeholder:text-graphite/30 outline-none transition-colors focus:border-gold-deep"
       />
     </label>
   );
@@ -124,12 +122,12 @@ function InfoBlock({
   return (
     <a
       href={href}
-      className="block rounded-sm border border-line p-6 transition-all duration-500 hover:border-gold/60 hover:bg-noir-soft/40"
+      className="block rounded-sm border border-line bg-ivory/60 p-6 transition-all duration-500 hover:border-gold-deep/50 hover:bg-cream/60"
     >
-      <div className="text-[0.65rem] uppercase tracking-[0.28em] text-gold/85">
+      <div className="text-[0.65rem] uppercase tracking-[0.28em] text-gold-deep">
         {label}
       </div>
-      <div className="font-display mt-2 text-xl text-champagne">{value}</div>
+      <div className="font-display mt-2 text-xl text-graphite">{value}</div>
     </a>
   );
 }

@@ -54,7 +54,7 @@ export default function RootLayout({
       lang="ru"
       className={`${display.variable} ${body.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-noir text-champagne">
+      <body className="min-h-full flex flex-col bg-background text-graphite">
         {children}
       </body>
     </html>
