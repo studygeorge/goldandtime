@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Crystal, Fog, Streak, SparkleField, FloaterField } from "./primitives";
@@ -23,7 +22,6 @@ export function Hero() {
   const yFog = useTransform(scrollYProgress, [0, 1], ["0%", "55%"]);
   const yCrystal = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const yText = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
-  const yPhoto = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const opacityVisual = useTransform(scrollYProgress, [0, 0.85], [1, 0.25]);
 
   return (
@@ -44,11 +42,20 @@ export function Hero() {
       <motion.div
         aria-hidden
         style={{ y: yCrystal, opacity: opacityVisual }}
-        className="absolute inset-0 -z-20 pointer-events-none hidden lg:block"
+        className="absolute inset-0 -z-20 pointer-events-none"
       >
-        <Streak x={-80} y={220} w={620} hue="sapphire" rot={-12} opacity={0.45} blur={2} />
-        <Crystal x="92%" y="8%" size={140} hue="emerald" rot={20} opacity={0.55} />
-        <Crystal x="-8%" y="78%" size={180} hue="ruby" rot={-15} opacity={0.45} />
+        <div className="hidden lg:block">
+          <Crystal x="68%" y={130} size={520} hue="sapphire" rot={12} />
+          <Crystal x="58%" y="55%" size={220} hue="emerald" rot={-18} />
+          <Crystal x="84%" y="68%" size={160} hue="ruby" rot={25} opacity={0.9} />
+          <Streak x={-80} y={220} w={620} hue="sapphire" rot={-12} opacity={0.55} blur={2} />
+        </div>
+        <div className="lg:hidden">
+          <Crystal x="58%" y="6%" size={260} hue="sapphire" rot={12} opacity={0.95} />
+          <Crystal x="-12%" y="58%" size={180} hue="ruby" rot={-15} opacity={0.7} />
+          <Crystal x="78%" y="78%" size={130} hue="emerald" rot={20} opacity={0.85} />
+          <Streak x="-20%" y="38%" w={420} hue="sapphire" rot={-12} opacity={0.4} blur={2} />
+        </div>
       </motion.div>
 
       <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
@@ -68,19 +75,16 @@ export function Hero() {
           <span className="t-mono-cap text-ink-3">НОВОЕ ПОСТУПЛЕНИЕ · 14 ПОЗИЦИЙ</span>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* TEXT COLUMN */}
-          <motion.div style={{ y: yText }} className="lg:col-span-7 order-2 lg:order-1">
+        <motion.div style={{ y: yText }}>
             <motion.h1
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
               className="t-display text-ink"
               style={{
-                fontSize: "clamp(2.6rem, 7vw, 7.5rem)",
+                fontSize: "clamp(3rem, 13vw, 13rem)",
                 letterSpacing: "-0.05em",
-                hyphens: "manual",
-                wordBreak: "keep-all",
+                maxWidth: "1100px",
               }}
             >
               ЧАСЫ.<br />
@@ -92,7 +96,7 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, delay: 0.45 }}
-              className="mt-7 md:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-[820px]"
+              className="mt-7 md:mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 max-w-[1080px]"
             >
               <p className="text-[15px] md:text-base leading-[1.55] text-ink-2 max-w-md">
                 Дилер швейцарских часов и&nbsp;ювелирных украшений с&nbsp;1992&nbsp;года.
@@ -107,22 +111,33 @@ export function Hero() {
                   Оценить мои часы<span className="arrow">→</span>
                 </Link>
               </div>
+
+              <div className="border-l border-ink pl-5">
+                <div className="t-mono-cap text-ink-3 mb-2">ОФИС / МОСКВА</div>
+                <div className="text-[13px] font-medium leading-[1.6]">
+                  ул. Петровка, 5<br />
+                  Пн&nbsp;—&nbsp;Вс · по&nbsp;записи<br />
+                  <a href="tel:+74951234567" className="t-mono hover:text-sapphire-mid transition-colors">
+                    +7 (495) 123-45-67
+                  </a>
+                </div>
+              </div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.7 }}
-              className="mt-10 md:mt-16 grid grid-cols-2 lg:grid-cols-4 border-t border-ink pt-6 md:pt-8 gap-y-6 md:gap-y-8 max-w-[900px]"
+              className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-4 border-t border-ink pt-6 md:pt-8 gap-y-6 md:gap-y-8"
             >
               {STATS.map((s, i) => (
                 <div
                   key={s[0]}
-                  className={`px-2 md:px-4 ${i < STATS.length - 1 ? "lg:border-r lg:border-line" : ""}`}
+                  className={`px-2 md:px-4 ${i < STATS.length - 1 ? "md:border-r md:border-line" : ""}`}
                 >
                   <div
                     className="t-display text-ink"
-                    style={{ fontSize: "clamp(1.4rem, 2.6vw, 2.4rem)", letterSpacing: "-0.04em" }}
+                    style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.85rem)", letterSpacing: "-0.04em" }}
                   >
                     {s[0]}
                   </div>
@@ -130,50 +145,7 @@ export function Hero() {
                 </div>
               ))}
             </motion.div>
-          </motion.div>
-
-          {/* IMAGE COLUMN */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
-            style={{ y: yPhoto }}
-            className="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-32"
-          >
-            <div className="relative aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] bg-paper border border-ink overflow-hidden">
-              <Image
-                src="/lifestyle/hero-businessman.jpg"
-                alt="Часы Gold & Time"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover"
-              />
-              {/* sapphire vignette */}
-              <div
-                aria-hidden
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(10,11,14,0) 50%, rgba(10,11,14,0.55) 100%)",
-                }}
-              />
-              {/* corner caption */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3 z-10">
-                <div className="t-mono-cap text-paper">
-                  · АТЕЛЬЕ · ПЕТРОВКА 5
-                </div>
-                <div className="t-mono-cap text-paper/80">
-                  EST. 1992
-                </div>
-              </div>
-              {/* sparkle decoration */}
-              <div aria-hidden className="absolute inset-0 pointer-events-none">
-                <SparkleField variant="jewel" />
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
