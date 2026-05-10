@@ -87,13 +87,14 @@ export function Jewelry() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-[480px] mx-auto lg:mx-0"
           >
             <div className="relative aspect-[4/5] bg-white overflow-hidden group">
               <Image
                 src={GRAFF_IMAGES[active]}
                 alt="Graff Wild Flower large diamond cluster ring"
                 fill
-                sizes="(max-width: 1024px) 100vw, 600px"
+                sizes="(max-width: 1024px) 100vw, 480px"
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
               />
             </div>
