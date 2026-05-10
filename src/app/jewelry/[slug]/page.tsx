@@ -41,7 +41,7 @@ export default async function JewelryItemPage({ params }: { params: Promise<Para
   return (
     <>
       <Header />
-      <main className="flex-1 pt-28 md:pt-32">
+      <main className="flex-1 pt-16 md:pt-20">
         <section className="relative overflow-hidden pb-12 md:pb-20 bg-paper border-b border-line">
           <Fog x={-150} y={-100} size={500} color="#2853C8" opacity={0.3} blur={100} />
           <Fog x="75%" y="55%" size={500} color="#C12347" opacity={0.22} blur={100} />

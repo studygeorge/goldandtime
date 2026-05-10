@@ -45,7 +45,7 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
   return (
     <>
       <Header />
-      <main className="flex-1 pt-28 md:pt-32">
+      <main className="flex-1 pt-16 md:pt-20">
         <section className="relative overflow-hidden pb-12 md:pb-20 border-b border-line">
           <Fog x={-150} y={-100} size={500} color="#2853C8" opacity={0.32} blur={110} />
           <Fog x="80%" y="40%" size={420} color="#1F9266" opacity={0.22} blur={100} />
