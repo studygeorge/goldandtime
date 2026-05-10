@@ -77,9 +77,10 @@ export function Hero() {
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
               className="t-display text-ink"
               style={{
-                fontSize: "clamp(2.8rem, 11vw, 11rem)",
+                fontSize: "clamp(2.6rem, 7vw, 7.5rem)",
                 letterSpacing: "-0.05em",
-                maxWidth: "1000px",
+                hyphens: "manual",
+                wordBreak: "keep-all",
               }}
             >
               ЧАСЫ.<br />

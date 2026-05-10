@@ -88,17 +88,14 @@ export function Jewelry() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative aspect-[4/5] bg-white border border-line overflow-hidden group">
+            <div className="relative aspect-[4/5] bg-white overflow-hidden group">
               <Image
                 src={GRAFF_IMAGES[active]}
                 alt="Graff Wild Flower large diamond cluster ring"
                 fill
                 sizes="(max-width: 1024px) 100vw, 600px"
-                className="object-contain p-8 md:p-12 transition-transform duration-500 group-hover:scale-[1.02]"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
               />
-              <div aria-hidden className="absolute inset-0 pointer-events-none">
-                <SparkleField variant="jewel" />
-              </div>
             </div>
             <div className="grid grid-cols-4 gap-2 mt-2">
               {GRAFF_IMAGES.map((src, i) => (
@@ -108,11 +105,11 @@ export function Jewelry() {
                   onClick={() => setActive(i)}
                   aria-label={`Фото ${i + 1}`}
                   aria-pressed={active === i}
-                  className={`relative aspect-square bg-white border transition-colors ${
-                    active === i ? "border-ink" : "border-line hover:border-ink-3"
+                  className={`relative aspect-square overflow-hidden transition-[outline] ${
+                    active === i ? "outline outline-2 outline-ink outline-offset-[-2px]" : "outline outline-1 outline-line hover:outline-ink-3 outline-offset-[-1px]"
                   }`}
                 >
-                  <Image src={src} alt="" fill sizes="120px" className="object-contain p-2" />
+                  <Image src={src} alt="" fill sizes="120px" className="object-cover" />
                 </button>
               ))}
             </div>
