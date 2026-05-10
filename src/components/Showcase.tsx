@@ -1,362 +1,178 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Crystal, Fog, Streak, SparkleField } from "./primitives";
+import { ProductCard } from "./ProductCard";
+import { WATCHES } from "@/data/watches";
 
-type Piece = {
-  brand: string;
-  model: string;
-  reference: string;
-  metal: string;
-  detail: string;
-  price: string;
-  badge?: string;
-  tone: "warm" | "cool" | "rose";
-};
+export function Watches() {
+  const preview = WATCHES.slice(0, 4);
 
-const WATCHES: Piece[] = [
-  {
-    brand: "Patek Philippe",
-    model: "Nautilus",
-    reference: "Ref. 5811/1G",
-    metal: "Белое золото 750°",
-    detail: "Автоматический калибр 26-330 S C · 45 ч",
-    price: "$ 290 000",
-    badge: "В наличии · 1 из 2",
-    tone: "cool",
-  },
-  {
-    brand: "Audemars Piguet",
-    model: "Royal Oak Concept Tourbillon",
-    reference: "Ref. 26630TI",
-    metal: "Титан · керамика",
-    detail: "Скелетонизированный турбийон · ручной завод",
-    price: "$ 410 000",
-    badge: "Limited · NOS",
-    tone: "cool",
-  },
-  {
-    brand: "Rolex",
-    model: "Daytona Platinum",
-    reference: "Ref. 126506 · Ice-blue dial",
-    metal: "Платина 950°",
-    detail: "Калибр 4131 · хронограф",
-    price: "$ 185 000",
-    badge: "Под запрос",
-    tone: "warm",
-  },
-  {
-    brand: "Richard Mille",
-    model: "RM 11-03 McLaren",
-    reference: "Carbon TPT · Quartz TPT",
-    metal: "Углеродное волокно",
-    detail: "Хронограф flyback · 55 ч",
-    price: "$ 245 000",
-    badge: "Edition limitée 14/500",
-    tone: "rose",
-  },
-  {
-    brand: "A. Lange & Söhne",
-    model: "Lange 1 Tourbillon",
-    reference: "Ref. 722.025",
-    metal: "Розовое золото 750°",
-    detail: "Турбийон с остановкой · ручной завод",
-    price: "$ 395 000",
-    badge: "Numbered 12/100",
-    tone: "rose",
-  },
-  {
-    brand: "Vacheron Constantin",
-    model: "Overseas Perpetual Calendar",
-    reference: "Ref. 4300V",
-    metal: "Розовое золото 750°",
-    detail: "Вечный календарь · 40 ч",
-    price: "$ 175 000",
-    badge: "Сертификат Hallmark of Geneva",
-    tone: "rose",
-  },
-];
-
-const JEWELRY: Piece[] = [
-  {
-    brand: "Cartier",
-    model: "Panthère High Jewelry",
-    reference: "Колье",
-    metal: "Белое золото 750° · ониксы · изумруды",
-    detail: "Ручная закрепка, 24.6 ct бриллиантов",
-    price: "$ 485 000",
-    badge: "Unique piece",
-    tone: "cool",
-  },
-  {
-    brand: "Van Cleef & Arpels",
-    model: "Alhambra · 20 motifs",
-    reference: "Длинное колье",
-    metal: "Жёлтое золото 750° · перламутр",
-    detail: "Авторизованная серия Maison",
-    price: "$ 95 000",
-    badge: "Сертификат VCA",
-    tone: "warm",
-  },
-  {
-    brand: "Bulgari",
-    model: "Serpenti High Jewelry",
-    reference: "Браслет-часы",
-    metal: "Розовое золото · бриллианты паве",
-    detail: "Турникет, индивидуальная посадка",
-    price: "$ 320 000",
-    badge: "Haute Joaillerie",
-    tone: "rose",
-  },
-  {
-    brand: "Graff",
-    model: "Butterfly Silhouette",
-    reference: "Серьги",
-    metal: "Платина · фантазийные бриллианты",
-    detail: "Розовый бриллиант 4.21 ct, GIA",
-    price: "$ 540 000",
-    badge: "Аукционный лот",
-    tone: "cool",
-  },
-  {
-    brand: "Harry Winston",
-    model: "Cluster",
-    reference: "Кольцо · 8.18 ct",
-    metal: "Платина · бриллиант D Flawless",
-    detail: "Сертификат GIA · Type IIa",
-    price: "$ 410 000",
-    badge: "Investment grade",
-    tone: "cool",
-  },
-  {
-    brand: "Tiffany & Co.",
-    model: "Schlumberger «Bird on a Rock»",
-    reference: "Брошь",
-    metal: "Жёлтое золото · аквамарин 41 ct",
-    detail: "Архивный дизайн J. Schlumberger",
-    price: "$ 220 000",
-    badge: "Архив Tiffany",
-    tone: "warm",
-  },
-];
-
-function WatchIllustration() {
   return (
-    <div className="relative h-[78%] w-[78%]">
-      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-graphite/10 via-graphite/5 to-transparent" />
-      <div className="absolute inset-[5%] rounded-full border border-graphite/25 ring-spin" />
-      <div className="absolute inset-[14%] rounded-full bg-ivory border border-graphite/30 shadow-[inset_0_0_40px_rgba(13,12,10,0.08),0_8px_24px_-8px_rgba(13,12,10,0.18)]" />
-      <div className="absolute left-1/2 top-1/2 h-[3px] w-[34%] -translate-x-1/2 -translate-y-1/2 origin-left bg-graphite rotate-[35deg] rounded-full" />
-      <div className="absolute left-1/2 top-1/2 h-[2px] w-[26%] -translate-x-1/2 -translate-y-1/2 origin-left bg-graphite/85 rotate-[110deg] rounded-full" />
-      <div className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-graphite" />
-      {Array.from({ length: 60 }).map((_, idx) => (
-        <span
-          key={idx}
-          className="absolute left-1/2 top-1/2 block w-px origin-bottom bg-graphite/55"
-          style={{
-            height: idx % 5 === 0 ? "10px" : "4px",
-            transform: `translate(-50%, -50%) rotate(${idx * 6}deg) translateY(-43%)`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function JewelIllustration() {
-  return (
-    <div className="relative h-[78%] w-[78%]">
-      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(13,12,10,0.08)_0%,transparent_60%)]" />
-      <svg viewBox="0 0 220 220" className="h-full w-full">
-        <defs>
-          <linearGradient id="ring-bw" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#0d0c0a" />
-            <stop offset="50%" stopColor="#5a534a" />
-            <stop offset="100%" stopColor="#0d0c0a" />
-          </linearGradient>
-          <radialGradient id="gem-bw" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-            <stop offset="50%" stopColor="#e8d9bd" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#0d0c0a" stopOpacity="0.4" />
-          </radialGradient>
-        </defs>
-        <g
-          fill="none"
-          stroke="url(#ring-bw)"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        >
-          <ellipse cx="110" cy="125" rx="72" ry="38" />
-          <ellipse cx="110" cy="125" rx="50" ry="26" opacity="0.7" />
-          <ellipse cx="110" cy="125" rx="30" ry="14" opacity="0.5" />
-        </g>
-        <g>
-          <path
-            d="M110 78 L94 56 L110 42 L126 56 Z"
-            fill="url(#gem-bw)"
-            stroke="url(#ring-bw)"
-            strokeWidth="0.8"
-          />
-          <path d="M110 78 L94 56 L126 56 Z" fill="rgba(255,255,255,0.4)" />
-          <circle cx="110" cy="62" r="2.6" fill="#ffffff" opacity="0.95" />
-          <circle cx="50" cy="125" r="3" fill="url(#gem-bw)" />
-          <circle cx="170" cy="125" r="3" fill="url(#gem-bw)" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function PieceCard({
-  index,
-  piece,
-  variant,
-}: {
-  index: number;
-  piece: Piece;
-  variant: "watch" | "jewelry";
-}) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        duration: 1,
-        ease: [0.22, 1, 0.36, 1],
-        delay: (index % 3) * 0.1,
-      }}
-      className="card-luxe group flex flex-col"
-    >
-      <div className="relative aspect-[4/5] overflow-hidden border-b border-line bg-gradient-to-br from-ivory via-cream/50 to-cream/70">
-        <div
-          aria-hidden
-          className="absolute inset-0 flex items-center justify-center transition-transform duration-700 group-hover:scale-105"
-        >
-          {variant === "watch" ? <WatchIllustration /> : <JewelIllustration />}
-        </div>
-        {piece.badge && (
-          <span className="absolute left-5 top-5 inline-flex items-center gap-2 border border-graphite bg-ivory/90 px-3 py-1 text-[0.62rem] uppercase tracking-[0.22em] text-graphite backdrop-blur">
-            <span className="gold-mark" />
-            {piece.badge}
-          </span>
-        )}
-        <div className="absolute right-5 top-5 text-right">
-          <div className="eyebrow text-graphite/55">{piece.brand}</div>
-        </div>
+    <section id="watches" className="relative scroll-mt-24 py-16 md:py-28 overflow-hidden">
+      <Fog x="80%" y={-100} size={420} color="#2853C8" opacity={0.28} blur={90} />
+      <div aria-hidden className="absolute inset-0 pointer-events-none -z-10">
+        <SparkleField variant="subtle" />
       </div>
 
-      <div className="flex flex-1 flex-col p-7 md:p-8">
-        <h4 className="text-xl md:text-2xl text-graphite font-medium tracking-tight">
-          {piece.model}
-        </h4>
-        <p className="mt-1 eyebrow text-graphite/55">{piece.reference}</p>
-        <ul className="mt-5 space-y-1.5 text-[0.82rem] leading-relaxed text-graphite/75">
-          <li>— {piece.metal}</li>
-          <li>— {piece.detail}</li>
-        </ul>
-
-        <div className="mt-auto pt-7 flex items-end justify-between border-t border-line">
+      <div className="mx-auto max-w-[110rem] px-6 md:px-10 relative">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8 md:mb-10">
           <div>
-            <div className="eyebrow text-graphite/55">Стоимость</div>
-            <div className="mt-1 text-xl md:text-2xl text-graphite font-medium tracking-tight">
-              {piece.price}
-            </div>
+            <span className="t-mono-cap text-ink-3">— КАТАЛОГ ЧАСОВ · ИЗБРАННОЕ</span>
+            <h2 className="t-display mt-3 text-ink" style={{ fontSize: "clamp(2.5rem, 9vw, 9rem)" }}>
+              ЧАСЫ<span style={{ color: "var(--sapphire)" }}>.</span>
+            </h2>
           </div>
-          <a
-            href="#contact"
-            className="text-[0.7rem] uppercase tracking-[0.22em] text-graphite transition-colors hover:text-graphite/60 flex items-center gap-2"
-          >
-            Запросить
-            <svg width="22" height="8" viewBox="0 0 22 8" fill="none">
-              <path
-                d="M0 4h20m0 0L17 1m3 3l-3 3"
-                stroke="currentColor"
-                strokeWidth="1"
-              />
-            </svg>
-          </a>
+          <p className="t-mono text-[12.5px] md:text-[13px] text-ink-2 max-w-sm leading-[1.55]">
+            {WATCHES.length} позиций в активе · поставки от&nbsp;официальных партнёров
+            и&nbsp;с&nbsp;аукционов Phillips, Christie&apos;s, Sotheby&apos;s.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {preview.map((p, i) => <ProductCard key={p.slug} p={p} i={i} />)}
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mt-10 md:mt-12">
+          <Link href="/watches" className="btn">
+            Все часы ({WATCHES.length})<span className="arrow">→</span>
+          </Link>
+          <Link href="/#contact" className="btn btn--ghost">
+            Запросить под себя<span className="arrow">→</span>
+          </Link>
         </div>
       </div>
-    </motion.article>
+    </section>
   );
 }
 
-export function Showcase() {
-  return (
-    <>
-      <section id="watches" className="relative scroll-mt-24 py-24 md:py-32" data-showcase>
-        <div className="mx-auto max-w-[110rem] px-6 md:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-            className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8"
-          >
-            <div>
-              <span className="eyebrow text-graphite/70">Часы · Horology</span>
-              <h2 className="section-h mt-4 text-graphite">
-                Кабинет коллекционера
-              </h2>
-            </div>
-            <p className="max-w-md text-sm md:text-base leading-relaxed text-graphite/70">
-              Аутентифицированные образцы со всеми коробками и&nbsp;документами.
-              Для каждой позиции — отчёт независимого часового эксперта.
-              Цены без НДС, доставка инкассацией.
-            </p>
-          </motion.div>
+/* === Single product showcase — Threads necklace === */
+export function Jewelry() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const yCrystal = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+  const yFog = useTransform(scrollYProgress, [0, 1], ["-10%", "30%"]);
 
-          <div id="showcase" className="mt-14 md:mt-20 grid grid-cols-1 gap-5 md:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {WATCHES.map((w, i) => (
-              <PieceCard
-                key={`${w.brand}-${w.model}`}
-                index={i}
-                variant="watch"
-                piece={w}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+  return (
+    <section
+      ref={ref}
+      id="jewelry"
+      className="relative scroll-mt-24 py-16 md:py-28 overflow-hidden bg-paper border-y border-line"
+    >
+      <Fog x={-150} y={-100} size={500} color="#2853C8" opacity={0.3} blur={100} />
+      <Fog x="75%" y="55%" size={500} color="#0F5A40" opacity={0.28} blur={100} />
 
       <div className="mx-auto max-w-[110rem] px-6 md:px-10">
-        <div className="divider-thin" />
-      </div>
+        <div className="flex justify-between items-end mb-7 md:mb-8 flex-wrap gap-4">
+          <div>
+            <span className="t-mono-cap text-ink-3">— УКРАШЕНИЯ · ИЗБРАННОЕ</span>
+            <h2 className="t-display mt-3 text-ink" style={{ fontSize: "clamp(1.85rem, 6vw, 5.5rem)" }}>
+              GRAFF · THREADS<span style={{ color: "var(--sapphire)" }}>.</span>
+            </h2>
+          </div>
+          <span className="t-mono-cap text-ink-3 hidden sm:inline-block">/ JEWELLERY / NECKLACES / 1 OF 1</span>
+        </div>
 
-      <section id="jewelry" className="relative scroll-mt-24 py-24 md:py-32">
-        <div className="mx-auto max-w-[110rem] px-6 md:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-            className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8"
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div>
-              <span className="eyebrow text-graphite/70">Украшения · Haute Joaillerie</span>
-              <h2 className="section-h mt-4 text-graphite">
-                Камни, которые помнят
-              </h2>
+            <div className="relative aspect-[4/5] bg-white border border-line overflow-hidden">
+              <motion.div aria-hidden style={{ y: yFog }} className="absolute inset-0">
+                <Fog x={-50} y={-50} size={300} color="#2853C8" opacity={0.5} blur={70} />
+                <Fog x="55%" y="55%" size={280} color="#1F9266" opacity={0.5} blur={70} />
+              </motion.div>
+              <motion.div aria-hidden style={{ y: yCrystal }} className="absolute inset-0">
+                <Crystal x="32%" y="22%" size={300} hue="sapphire" rot={5} />
+                <Crystal x="55%" y="58%" size={180} hue="emerald" rot={-15} />
+                <Streak x="-5%" y="80%" w={400} hue="emerald" rot={-12} opacity={0.5} />
+              </motion.div>
+              <div aria-hidden className="absolute inset-0 pointer-events-none">
+                <SparkleField variant="jewel" />
+              </div>
             </div>
-            <p className="max-w-md text-sm md:text-base leading-relaxed text-graphite/70">
-              Сертификаты GIA / IGI / SSEF. Trade-in ваших украшений
-              с&nbsp;зачётом до&nbsp;90%. Сопровождение сделки нотариусом
-              и&nbsp;экспертом-геммологом.
-            </p>
+            <div className="grid grid-cols-4 gap-2 mt-2">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="ph aspect-square" style={{ fontSize: 9 }}>VIEW {i}</div>
+              ))}
+            </div>
           </motion.div>
 
-          <div className="mt-14 md:mt-20 grid grid-cols-1 gap-5 md:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {JEWELRY.map((j, i) => (
-              <PieceCard
-                key={`${j.brand}-${j.model}`}
-                index={i}
-                variant="jewelry"
-                piece={j}
-              />
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+          >
+            <div className="t-mono-cap mb-3 md:mb-4" style={{ color: "var(--sapphire)" }}>
+              · GRAFF · HIGH JEWELLERY
+            </div>
+            <h3 className="t-display" style={{ fontSize: "clamp(2.25rem, 6vw, 6rem)" }}>
+              Колье<br />
+              <span style={{ color: "var(--sapphire)" }}>Threads.</span>
+            </h3>
+
+            <div className="grid grid-cols-3 gap-3 mt-7 md:mt-8 pt-4 border-t border-ink">
+              {[["31.4 ct", "БРИЛЛИАНТЫ"], ["412", "КАМНЕЙ"], ["PT 950", "ПЛАТИНА"]].map(([v, k]) => (
+                <div key={k}>
+                  <div className="text-[1.45rem] md:text-[2.2rem] font-extrabold tracking-[-0.04em] leading-none">
+                    {v}
+                  </div>
+                  <div className="t-mono-cap text-ink-3 mt-1.5">{k}</div>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-[14px] md:text-[15px] leading-[1.6] text-ink-2 mt-6 md:mt-8 max-w-lg">
+              Каждый камень закреплён индивидуально. Ручная работа женевского ателье,
+              GIA-отчёт по&nbsp;каждой позиции, размер регулируется. Доступно для&nbsp;частного просмотра
+              на&nbsp;Петровке или с&nbsp;выездом.
+            </p>
+
+            <div className="grid grid-cols-2 mt-6 md:mt-8 border border-line">
+              {[
+                ["ОГРАНКА", "ROUND BRILLIANT"],
+                ["ЧИСТОТА", "IF — VVS1"],
+                ["ЦВЕТ", "D — F"],
+                ["СЕРТИФИКАТ", "GIA · по каждому"],
+                ["ПРОИСХОЖДЕНИЕ", "London Atelier"],
+                ["РАЗМЕР", "регулируется"],
+              ].map(([k, v], i) => (
+                <div
+                  key={k}
+                  className="bg-white p-3 md:p-4"
+                  style={{
+                    borderRight: i % 2 === 0 ? "1px solid var(--line)" : "none",
+                    borderBottom: i < 4 ? "1px solid var(--line)" : "none",
+                  }}
+                >
+                  <div className="t-mono-cap text-ink-3 mb-1">{k}</div>
+                  <div className="text-[12.5px] md:text-[13px] font-semibold">{v}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-ink text-paper p-5 md:p-6 mt-5 md:mt-6 flex items-center justify-between gap-4 flex-wrap">
+              <div>
+                <div className="t-mono-cap mb-1.5" style={{ color: "var(--chrome)" }}>· ЦЕНА</div>
+                <div className="text-[1.4rem] md:text-[2.2rem] font-extrabold tracking-[-0.03em] leading-none">
+                  $ 485 000
+                </div>
+                <div className="t-mono-cap mt-2" style={{ color: "var(--chrome)" }}>+ trade-in зачётом</div>
+              </div>
+              <Link href="/#contact" className="btn btn--white">Запросить просмотр<span className="arrow">→</span></Link>
+            </div>
+          </motion.div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

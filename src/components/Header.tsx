@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const NAV = [
-  { href: "#maisons", label: "Дома" },
-  { href: "#watches", label: "Часы" },
-  { href: "#jewelry", label: "Украшения" },
-  { href: "#about", label: "Atelier" },
-  { href: "#contact", label: "Контакты" },
+const NAV: Array<{ href: string; label: string }> = [
+  { href: "/watches", label: "Часы" },
+  { href: "/#jewelry", label: "Украшения" },
+  { href: "/#how", label: "Как это работает" },
+  { href: "/#trade-in", label: "Trade-in" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export function Header() {
@@ -24,65 +24,66 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "backdrop-blur-md bg-ivory/90 border-b border-line"
+          ? "backdrop-blur-md bg-[rgba(237,239,242,0.85)] border-b border-line"
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-[110rem] items-center justify-between px-6 md:px-10 py-4 md:py-5">
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-sm md:text-base tracking-[0.22em] uppercase text-graphite font-medium"
-        >
-          <span className="gold-mark" />
-          GOLD &amp; TIME
+      <div className="mx-auto grid max-w-[110rem] grid-cols-[auto_1fr_auto] items-center px-6 md:px-10 py-4 md:py-5 gap-6">
+        <Link href="/" className="logo" style={{ fontSize: 18 }}>
+          <span className="dot" />
+          GOLD&amp;TIME
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center justify-center gap-6 text-[13px] font-semibold tracking-[-0.01em]">
           {NAV.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-[0.72rem] uppercase tracking-[0.22em] text-graphite/75 transition-colors hover:text-graphite"
-            >
+            <Link key={item.href} href={item.href} className="text-ink hover:text-sapphire-mid transition-colors">
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        <a href="#contact" className="hidden md:inline-flex btn-ghost">
-          Записаться
-        </a>
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Меню"
-          className="md:hidden text-graphite"
-        >
-          <svg width="28" height="20" viewBox="0 0 28 20" fill="none">
-            <path d="M2 2h24M2 10h24M2 18h24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button>
+        <div className="flex items-center justify-end gap-3 md:gap-4">
+          <a
+            href="tel:+74951234567"
+            className="hidden md:inline-block t-mono text-ink-2 hover:text-sapphire-mid transition-colors"
+            style={{ fontSize: 13 }}
+          >
+            +7 (495) 123-45-67
+          </a>
+          <Link href="/#contact" className="btn btn--sm hidden md:inline-flex">
+            Записаться<span className="arrow">→</span>
+          </Link>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Меню"
+            className="lg:hidden text-ink p-2 -mr-2"
+          >
+            <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
+              <path d="M2 2h20M2 9h20M2 16h20" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-line bg-ivory/95 backdrop-blur">
+        <div className="lg:hidden border-t border-line bg-paper">
           <div className="flex flex-col px-6 py-6 gap-5">
             {NAV.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="text-sm uppercase tracking-[0.22em] text-graphite/85 hover:text-graphite"
+                className="text-sm font-semibold uppercase tracking-[0.04em] text-ink"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
-            <a href="#contact" className="btn-solid mt-2 self-start" onClick={() => setOpen(false)}>
-              Записаться
-            </a>
+            <Link href="/#contact" className="btn mt-2 self-start" onClick={() => setOpen(false)}>
+              Записаться<span className="arrow">→</span>
+            </Link>
           </div>
         </div>
       )}

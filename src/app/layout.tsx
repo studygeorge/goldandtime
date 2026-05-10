@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Fira_Code } from "next/font/google";
+import { Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const fira = Fira_Code({
+const manrope = Manrope({
+  variable: "--font-sans",
+  weight: ["300", "400", "600", "800"],
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
+
+const jbmono = JetBrains_Mono({
   variable: "--font-mono",
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500"],
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
@@ -12,33 +19,32 @@ const fira = Fira_Code({
 export const metadata: Metadata = {
   metadataBase: new URL("https://goldandtime.ru"),
   title: {
-    default: "Gold & Time — эксклюзивные часы и украшения",
+    default: "Gold & Time — часы и ювелирные редкости. Москва",
     template: "%s · Gold & Time",
   },
   description:
-    "Эксклюзивные часы и украшения. Rolex, Patek Philippe, Audemars Piguet, Cartier, Bulgari, Van Cleef & Arpels — в наличии и под заказ.",
+    "Дилер часов и ювелирных редкостей. Patek Philippe, Audemars Piguet, Rolex, Cartier, Vacheron, Lange, Richard Mille, Graff. Москва, Петровка 5, по записи. Цена — разговор.",
   keywords: [
-    "эксклюзивные часы",
-    "украшения",
-    "ювелирные изделия",
-    "luxury",
-    "Rolex",
     "Patek Philippe",
+    "Audemars Piguet",
+    "Rolex",
     "Cartier",
+    "Vacheron Constantin",
+    "Richard Mille",
+    "часы Москва",
+    "ювелирные украшения",
+    "trade-in часы",
   ],
   openGraph: {
-    title: "Gold & Time — эксклюзивные часы и украшения",
+    title: "Gold & Time — часы и ювелирные редкости",
     description:
-      "Rolex, Patek Philippe, Audemars Piguet, Cartier, Bulgari, Van Cleef & Arpels — в наличии и под заказ.",
+      "Подбор по запросу — без витринных накруток. Москва, Петровка 5, по записи.",
     url: "https://goldandtime.ru",
     siteName: "Gold & Time",
     locale: "ru_RU",
     type: "website",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -47,10 +53,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${fira.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-background text-graphite">
-        {children}
-      </body>
+    <html lang="ru" className={`${manrope.variable} ${jbmono.variable} h-full antialiased scroll-smooth`}>
+      <body className="min-h-full bg-ice text-ink">{children}</body>
     </html>
   );
 }
