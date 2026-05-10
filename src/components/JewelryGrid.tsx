@@ -2,49 +2,46 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ProductCard } from "./ProductCard";
+import { JewelryCard } from "./JewelryCard";
 import { Fog, SparkleField } from "./primitives";
-import type { Watch } from "@/data/watches";
-import { watchBrands } from "@/data/brands";
+import type { Jewelry } from "@/data/jewelry";
+import { jewelryBrands } from "@/data/brands";
 
-type SortKey = "newest" | "priceAsc" | "priceDesc" | "yearDesc";
+type SortKey = "newest" | "priceAsc" | "priceDesc";
 
 const SORTS: Array<[SortKey, string]> = [
   ["newest",    "СНАЧАЛА — НОВЫЕ"],
   ["priceDesc", "ЦЕНА · УБЫВ."],
   ["priceAsc",  "ЦЕНА · ВОЗР."],
-  ["yearDesc",  "ГОД · УБЫВ."],
 ];
 
-function applySort(items: Watch[], key: SortKey): Watch[] {
+function applySort(items: Jewelry[], key: SortKey): Jewelry[] {
   const arr = [...items];
   if (key === "priceAsc") {
     arr.sort((a, b) => (a.priceUSD ?? Number.POSITIVE_INFINITY) - (b.priceUSD ?? Number.POSITIVE_INFINITY));
   } else if (key === "priceDesc") {
     arr.sort((a, b) => (b.priceUSD ?? -1) - (a.priceUSD ?? -1));
-  } else if (key === "yearDesc") {
-    arr.sort((a, b) => parseInt(b.year, 10) - parseInt(a.year, 10));
-  } // newest = source order
+  }
   return arr;
 }
 
-export function CatalogGrid({
-  watches,
+export function JewelryGrid({
+  items,
   showBrandFilter = true,
   initialBrand,
 }: {
-  watches: Watch[];
+  items: Jewelry[];
   showBrandFilter?: boolean;
   initialBrand?: string;
 }) {
   const [brand, setBrand] = useState<string>(initialBrand || "all");
   const [sort, setSort] = useState<SortKey>("newest");
 
-  const stockBrands = useMemo(() => watchBrands(), []);
+  const stockBrands = useMemo(() => jewelryBrands(), []);
   const visible = useMemo(() => {
-    const filtered = brand === "all" ? watches : watches.filter((w) => w.brandSlug === brand);
+    const filtered = brand === "all" ? items : items.filter((j) => j.brandSlug === brand);
     return applySort(filtered, sort);
-  }, [watches, brand, sort]);
+  }, [items, brand, sort]);
 
   return (
     <div className="relative">
@@ -110,7 +107,7 @@ export function CatalogGrid({
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-          {visible.map((p, i) => <ProductCard key={p.slug} p={p} i={i} />)}
+          {visible.map((p, i) => <JewelryCard key={p.slug} p={p} i={i} />)}
         </div>
       )}
     </div>

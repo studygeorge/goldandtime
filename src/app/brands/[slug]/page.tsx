@@ -5,9 +5,11 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { CatalogGrid } from "@/components/CatalogGrid";
+import { JewelryCard } from "@/components/JewelryCard";
 import { Crystal, Fog, Streak, SparkleField } from "@/components/primitives";
 import { BRANDS, brandsWithStock, getBrand } from "@/data/brands";
 import { watchesByBrand } from "@/data/watches";
+import { jewelryByBrand } from "@/data/jewelry";
 
 export function generateStaticParams() {
   return BRANDS.map((b) => ({ slug: b.slug }));
@@ -23,8 +25,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const b = getBrand(slug);
   if (!b) return { title: "Не найдено" };
+  const kindLabel =
+    b.kind === "watches" ? "каталог часов" : b.kind === "jewelry" ? "каталог украшений" : "каталог";
   return {
-    title: `${b.name} — каталог часов`,
+    title: `${b.name} — ${kindLabel}`,
     description: `${b.name} (${b.era}). ${b.description.slice(0, 140)}`,
   };
 }
@@ -34,6 +38,8 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
   const brand = getBrand(slug);
   if (!brand) notFound();
   const watches = watchesByBrand(slug);
+  const jewelry = jewelryByBrand(slug);
+  const totalCount = watches.length + jewelry.length;
   const others = brandsWithStock().filter((b) => b.slug !== slug);
 
   return (
@@ -58,7 +64,9 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
             <Breadcrumb
               items={[
                 { href: "/", label: "Главная" },
-                { href: "/watches", label: "Часы" },
+                brand.kind === "jewelry"
+                  ? { href: "/jewelry", label: "Украшения" }
+                  : { href: "/watches", label: "Часы" },
                 { label: brand.name },
               ]}
             />
@@ -78,18 +86,61 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
                   {brand.description}
                 </p>
                 <div className="t-mono-cap text-ink-3 mt-6">
-                  · {watches.length} {watches.length === 1 ? "позиция" : "позиций"} в&nbsp;стоке
+                  · {totalCount} {totalCount === 1 ? "позиция" : "позиций"} в&nbsp;стоке
+                  {watches.length > 0 && jewelry.length > 0 && (
+                    <> · {watches.length} час. + {jewelry.length} укр.</>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="relative py-14 md:py-20">
-          <div className="mx-auto max-w-[110rem] px-6 md:px-10">
-            {watches.length > 0 ? (
+        {watches.length > 0 && (
+          <section className="relative py-14 md:py-20">
+            <div className="mx-auto max-w-[110rem] px-6 md:px-10">
+              <div className="flex items-end justify-between gap-4 mb-6 md:mb-8 flex-wrap">
+                <div>
+                  <span className="t-mono-cap text-ink-3">— ЧАСЫ</span>
+                  <h2 className="t-display mt-2 text-ink" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
+                    {watches.length} {watches.length === 1 ? "позиция" : watches.length < 5 ? "позиции" : "позиций"}
+                    <span style={{ color: "var(--sapphire)" }}>.</span>
+                  </h2>
+                </div>
+                <Link href="/watches" className="t-mono-cap hover:text-sapphire-mid transition-colors">
+                  ВСЕ ЧАСЫ →
+                </Link>
+              </div>
               <CatalogGrid watches={watches} showBrandFilter={false} />
-            ) : (
+            </div>
+          </section>
+        )}
+
+        {jewelry.length > 0 && (
+          <section className="relative py-14 md:py-20 bg-paper border-t border-line">
+            <div className="mx-auto max-w-[110rem] px-6 md:px-10">
+              <div className="flex items-end justify-between gap-4 mb-6 md:mb-8 flex-wrap">
+                <div>
+                  <span className="t-mono-cap text-ink-3">— УКРАШЕНИЯ</span>
+                  <h2 className="t-display mt-2 text-ink" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
+                    {jewelry.length} {jewelry.length === 1 ? "позиция" : jewelry.length < 5 ? "позиции" : "позиций"}
+                    <span style={{ color: "var(--sapphire)" }}>.</span>
+                  </h2>
+                </div>
+                <Link href="/jewelry" className="t-mono-cap hover:text-sapphire-mid transition-colors">
+                  ВСЕ УКРАШЕНИЯ →
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                {jewelry.map((p, i) => <JewelryCard key={p.slug} p={p} i={i} />)}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {totalCount === 0 && (
+          <section className="relative py-14 md:py-20">
+            <div className="mx-auto max-w-[110rem] px-6 md:px-10">
               <div className="text-center py-16 max-w-xl mx-auto">
                 <div className="t-mono-cap text-ink-3 mb-3">· В СТОКЕ ПОКА НЕТ ПОЗИЦИЙ</div>
                 <p className="text-[15px] text-ink-2">
@@ -99,9 +150,9 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
                   Запросить позицию {brand.short}<span className="arrow">→</span>
                 </Link>
               </div>
-            )}
-          </div>
-        </section>
+            </div>
+          </section>
+        )}
 
         <section className="relative py-12 md:py-16 border-t border-line bg-paper">
           <div className="mx-auto max-w-[110rem] px-6 md:px-10">

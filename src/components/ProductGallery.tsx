@@ -3,19 +3,29 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export function ProductGallery({ images, alt }: { images: string[]; alt: string }) {
+export function ProductGallery({
+  images,
+  alt,
+  fit = "contain",
+}: {
+  images: string[];
+  alt: string;
+  /** "contain" — product on white with padding (watches); "cover" — full-bleed lifestyle (jewelry models) */
+  fit?: "contain" | "cover";
+}) {
   const [active, setActive] = useState(0);
   const main = images[active] ?? images[0];
+  const cover = fit === "cover";
 
   return (
     <div>
-      <div className="relative aspect-[4/5] bg-white border border-line overflow-hidden group">
+      <div className={`relative aspect-[4/5] bg-white overflow-hidden group ${cover ? "" : "border border-line"}`}>
         <Image
           src={main}
           alt={alt}
           fill
           sizes="(max-width: 1024px) 100vw, 600px"
-          className="object-contain p-8 md:p-10 transition-transform duration-500 group-hover:scale-[1.02]"
+          className={`${cover ? "object-cover" : "object-contain p-8 md:p-10"} transition-transform duration-500 group-hover:scale-[1.02]`}
           priority
         />
       </div>
@@ -28,8 +38,10 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
               onClick={() => setActive(i)}
               aria-label={`Фото ${i + 1}`}
               aria-pressed={active === i}
-              className={`relative aspect-square bg-white border transition-colors ${
-                active === i ? "border-ink" : "border-line hover:border-ink-3"
+              className={`relative aspect-square bg-white overflow-hidden transition-[outline] ${
+                active === i
+                  ? "outline outline-2 outline-ink outline-offset-[-2px]"
+                  : "outline outline-1 outline-line hover:outline-ink-3 outline-offset-[-1px]"
               }`}
             >
               <Image
@@ -37,11 +49,11 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
                 alt=""
                 fill
                 sizes="120px"
-                className="object-contain p-2"
+                className={cover ? "object-cover" : "object-contain p-2"}
               />
             </button>
           ))}
-          {Array.from({ length: Math.max(0, 4 - images.length) }).map((_, i) => (
+          {!cover && Array.from({ length: Math.max(0, 4 - images.length) }).map((_, i) => (
             <div key={`ph-${i}`} className="ph aspect-square" style={{ fontSize: 9 }}>
               VIEW {images.length + i + 1}
             </div>

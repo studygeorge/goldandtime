@@ -181,6 +181,15 @@ export function Jewelry() {
               </div>
               <Link href="/#contact" className="btn btn--white">Запросить просмотр<span className="arrow">→</span></Link>
             </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-2.5 items-start">
+              <Link href="/jewelry" className="btn">
+                Все украшения<span className="arrow">→</span>
+              </Link>
+              <Link href="/brands/graff" className="btn btn--ghost">
+                Все Graff<span className="arrow">→</span>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const NAV: Array<{ href: string; label: string }> = [
   { href: "/watches", label: "Часы" },
-  { href: "/#jewelry", label: "Украшения" },
+  { href: "/jewelry", label: "Украшения" },
   { href: "/#how", label: "Как это работает" },
   { href: "/#trade-in", label: "Trade-in" },
   { href: "/#faq", label: "FAQ" },
