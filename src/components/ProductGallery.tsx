@@ -99,11 +99,6 @@ export function ProductGallery({
               />
             </button>
           ))}
-          {!cover && Array.from({ length: Math.max(0, 4 - images.length) }).map((_, i) => (
-            <div key={`ph-${i}`} className="ph aspect-square" style={{ fontSize: 9 }}>
-              VIEW {images.length + i + 1}
-            </div>
-          ))}
         </div>
       )}
     </div>

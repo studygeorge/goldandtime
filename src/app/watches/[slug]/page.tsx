@@ -62,23 +62,16 @@ export default async function WatchPage({ params }: { params: Promise<Params> })
                 {w.images && w.images.length > 0 ? (
                   <ProductGallery images={w.images} alt={`${w.brand} ${w.model}`} />
                 ) : (
-                  <>
-                    <div className="relative aspect-[4/5] bg-white border border-line overflow-hidden">
-                      <Fog x={-50} y={-50} size={300} color="#2853C8" opacity={0.45} blur={70} />
-                      <Fog x="55%" y="55%" size={280} color="#1F9266" opacity={0.4} blur={70} />
-                      <Crystal x="28%" y="22%" size={320} hue={w.hue} rot={5} />
-                      <Crystal x="55%" y="58%" size={170} hue={w.hue === "ruby" ? "sapphire" : "ruby"} rot={-15} opacity={0.85} />
-                      <Streak x="-5%" y="80%" w={400} hue={w.hue === "obsidian" ? "sapphire" : "sapphire"} rot={-12} opacity={0.45} />
-                      <div aria-hidden className="absolute inset-0 pointer-events-none">
-                        <SparkleField variant="jewel" />
-                      </div>
+                  <div className="relative aspect-[4/5] bg-white border border-line overflow-hidden">
+                    <Fog x={-50} y={-50} size={300} color="#2853C8" opacity={0.45} blur={70} />
+                    <Fog x="55%" y="55%" size={280} color="#1F9266" opacity={0.4} blur={70} />
+                    <Crystal x="28%" y="22%" size={320} hue={w.hue} rot={5} />
+                    <Crystal x="55%" y="58%" size={170} hue={w.hue === "ruby" ? "sapphire" : "ruby"} rot={-15} opacity={0.85} />
+                    <Streak x="-5%" y="80%" w={400} hue="sapphire" rot={-12} opacity={0.45} />
+                    <div aria-hidden className="absolute inset-0 pointer-events-none">
+                      <SparkleField variant="jewel" />
                     </div>
-                    <div className="grid grid-cols-4 gap-2 mt-2">
-                      {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="ph aspect-square" style={{ fontSize: 9 }}>VIEW {i}</div>
-                      ))}
-                    </div>
-                  </>
+                  </div>
                 )}
               </div>
 
