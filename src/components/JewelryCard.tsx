@@ -16,6 +16,7 @@ function tagClass(v: JewelryTagVariant) {
 
 export function JewelryCard({ p, i = 0 }: { p: Jewelry; i?: number }) {
   const hero = p.images && p.images.length > 0 ? p.images[0] : null;
+  const second = p.images && p.images.length > 1 ? p.images[1] : null;
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
@@ -27,14 +28,26 @@ export function JewelryCard({ p, i = 0 }: { p: Jewelry; i?: number }) {
       <Link href={`/jewelry/${p.slug}`} className="block">
         <div className="relative h-[200px] sm:h-[230px] bg-white overflow-hidden">
           {hero ? (
-            <Image
-              src={hero}
-              alt={`${p.brand} ${p.model}`}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 33vw, 320px"
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              priority={i < 4}
-            />
+            <>
+              <Image
+                src={hero}
+                alt={`${p.brand} ${p.model}`}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 33vw, 320px"
+                className={`object-cover transition-opacity duration-500 ${second ? "group-hover:opacity-0" : "transition-transform group-hover:scale-[1.04]"}`}
+                priority={i < 4}
+              />
+              {second && (
+                <Image
+                  src={second}
+                  alt=""
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 33vw, 320px"
+                  className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  aria-hidden
+                />
+              )}
+            </>
           ) : (
             <div className="absolute inset-0 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
               <div className="relative w-full h-full">
