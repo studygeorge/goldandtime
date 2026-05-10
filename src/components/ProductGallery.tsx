@@ -16,16 +16,19 @@ export function ProductGallery({
   const [active, setActive] = useState(0);
   const main = images[active] ?? images[0];
   const cover = fit === "cover";
+  // Square aspect for products on white (watches, hero shots) — keeps native source resolution.
+  // Tall aspect for full-bleed lifestyle (model shots) — preserves portrait composition.
+  const ratio = cover ? "aspect-[4/5]" : "aspect-square";
 
   return (
-    <div>
-      <div className={`relative aspect-[4/5] bg-white overflow-hidden group ${cover ? "" : "border border-line"}`}>
+    <div className="max-w-[520px] mx-auto lg:mx-0">
+      <div className={`relative ${ratio} bg-white overflow-hidden group ${cover ? "" : "border border-line"}`}>
         <Image
           src={main}
           alt={alt}
           fill
-          sizes="(max-width: 1024px) 100vw, 600px"
-          className={`${cover ? "object-cover" : "object-contain p-8 md:p-10"} transition-transform duration-500 group-hover:scale-[1.02]`}
+          sizes="(max-width: 1024px) 100vw, 520px"
+          className={`${cover ? "object-cover" : "object-contain p-6 md:p-8"} transition-transform duration-500 group-hover:scale-[1.02]`}
           priority
         />
       </div>

@@ -25,13 +25,13 @@ export function JewelryCard({ p, i = 0 }: { p: Jewelry; i?: number }) {
       className="card group flex flex-col"
     >
       <Link href={`/jewelry/${p.slug}`} className="block">
-        <div className="relative h-[260px] sm:h-[300px] bg-white overflow-hidden">
+        <div className="relative h-[200px] sm:h-[230px] bg-white overflow-hidden">
           {hero ? (
             <Image
               src={hero}
               alt={`${p.brand} ${p.model}`}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 33vw, 320px"
               className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               priority={i < 4}
             />
