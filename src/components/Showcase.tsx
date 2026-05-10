@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Crystal, Fog, Streak, SparkleField } from "./primitives";
+import { Fog, SparkleField } from "./primitives";
 import { ProductCard } from "./ProductCard";
 import { WATCHES } from "@/data/watches";
 
@@ -48,15 +49,17 @@ export function Watches() {
   );
 }
 
-/* === Single product showcase — Threads necklace === */
+/* === Single product showcase — Graff Wild Flower diamond cluster ring === */
+const GRAFF_IMAGES = [
+  "/lifestyle/graff-wild-flower/01.jpg",
+  "/lifestyle/graff-wild-flower/02.jpg",
+  "/lifestyle/graff-wild-flower/04.jpg",
+  "/lifestyle/graff-wild-flower/03.jpg",
+];
+
 export function Jewelry() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const yCrystal = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
-  const yFog = useTransform(scrollYProgress, [0, 1], ["-10%", "30%"]);
+  const [active, setActive] = useState(0);
 
   return (
     <section
@@ -72,10 +75,10 @@ export function Jewelry() {
           <div>
             <span className="t-mono-cap text-ink-3">— УКРАШЕНИЯ · ИЗБРАННОЕ</span>
             <h2 className="t-display mt-3 text-ink" style={{ fontSize: "clamp(1.85rem, 6vw, 5.5rem)" }}>
-              GRAFF · THREADS<span style={{ color: "var(--sapphire)" }}>.</span>
+              GRAFF · WILD FLOWER<span style={{ color: "var(--sapphire)" }}>.</span>
             </h2>
           </div>
-          <span className="t-mono-cap text-ink-3 hidden sm:inline-block">/ JEWELLERY / NECKLACES / 1 OF 1</span>
+          <span className="t-mono-cap text-ink-3 hidden sm:inline-block">/ JEWELLERY / RINGS / WHITE GOLD</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
@@ -85,23 +88,32 @@ export function Jewelry() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative aspect-[4/5] bg-white border border-line overflow-hidden">
-              <motion.div aria-hidden style={{ y: yFog }} className="absolute inset-0">
-                <Fog x={-50} y={-50} size={300} color="#2853C8" opacity={0.5} blur={70} />
-                <Fog x="55%" y="55%" size={280} color="#1F9266" opacity={0.5} blur={70} />
-              </motion.div>
-              <motion.div aria-hidden style={{ y: yCrystal }} className="absolute inset-0">
-                <Crystal x="32%" y="22%" size={300} hue="sapphire" rot={5} />
-                <Crystal x="55%" y="58%" size={180} hue="emerald" rot={-15} />
-                <Streak x="-5%" y="80%" w={400} hue="emerald" rot={-12} opacity={0.5} />
-              </motion.div>
+            <div className="relative aspect-[4/5] bg-white border border-line overflow-hidden group">
+              <Image
+                src={GRAFF_IMAGES[active]}
+                alt="Graff Wild Flower large diamond cluster ring"
+                fill
+                sizes="(max-width: 1024px) 100vw, 600px"
+                className="object-contain p-8 md:p-12 transition-transform duration-500 group-hover:scale-[1.02]"
+              />
               <div aria-hidden className="absolute inset-0 pointer-events-none">
                 <SparkleField variant="jewel" />
               </div>
             </div>
             <div className="grid grid-cols-4 gap-2 mt-2">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="ph aspect-square" style={{ fontSize: 9 }}>VIEW {i}</div>
+              {GRAFF_IMAGES.map((src, i) => (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  aria-label={`Фото ${i + 1}`}
+                  aria-pressed={active === i}
+                  className={`relative aspect-square bg-white border transition-colors ${
+                    active === i ? "border-ink" : "border-line hover:border-ink-3"
+                  }`}
+                >
+                  <Image src={src} alt="" fill sizes="120px" className="object-contain p-2" />
+                </button>
               ))}
             </div>
           </motion.div>
@@ -116,12 +128,12 @@ export function Jewelry() {
               · GRAFF · HIGH JEWELLERY
             </div>
             <h3 className="t-display" style={{ fontSize: "clamp(2.25rem, 6vw, 6rem)" }}>
-              Колье<br />
-              <span style={{ color: "var(--sapphire)" }}>Threads.</span>
+              Кольцо<br />
+              <span style={{ color: "var(--sapphire)" }}>Wild Flower.</span>
             </h3>
 
             <div className="grid grid-cols-3 gap-3 mt-7 md:mt-8 pt-4 border-t border-ink">
-              {[["31.4 ct", "БРИЛЛИАНТЫ"], ["412", "КАМНЕЙ"], ["PT 950", "ПЛАТИНА"]].map(([v, k]) => (
+              {[["1.18 ct", "БРИЛЛИАНТЫ"], ["18k", "БЕЛОЕ ЗОЛОТО"], ["UK 7", "РАЗМЕР · ⌀ 17,3"]].map(([v, k]) => (
                 <div key={k}>
                   <div className="text-[1.45rem] md:text-[2.2rem] font-extrabold tracking-[-0.04em] leading-none">
                     {v}
@@ -132,19 +144,21 @@ export function Jewelry() {
             </div>
 
             <p className="text-[14px] md:text-[15px] leading-[1.6] text-ink-2 mt-6 md:mt-8 max-w-lg">
-              Каждый камень закреплён индивидуально. Ручная работа женевского ателье,
-              GIA-отчёт по&nbsp;каждой позиции, размер регулируется. Доступно для&nbsp;частного просмотра
-              на&nbsp;Петровке или с&nbsp;выездом.
+              Россыпь бриллиантовых соцветий собрана с&nbsp;дикой непринуждённостью.
+              Каждый лепесток выполнен индивидуально и&nbsp;поднимается к&nbsp;коже носителя
+              с&nbsp;невесомой лёгкостью — как только что распустившийся цветок. Четыре сорта
+              цветков образуют сад в&nbsp;коллекции Wild Flower — современный взгляд
+              на&nbsp;традиционный английский garden.
             </p>
 
             <div className="grid grid-cols-2 mt-6 md:mt-8 border border-line">
               {[
                 ["ОГРАНКА", "ROUND BRILLIANT"],
-                ["ЧИСТОТА", "IF — VVS1"],
+                ["ЧИСТОТА", "VS1 — VVS1"],
                 ["ЦВЕТ", "D — F"],
                 ["СЕРТИФИКАТ", "GIA · по каждому"],
                 ["ПРОИСХОЖДЕНИЕ", "London Atelier"],
-                ["РАЗМЕР", "регулируется"],
+                ["АРТИКУЛ", "RGR844"],
               ].map(([k, v], i) => (
                 <div
                   key={k}
@@ -164,7 +178,7 @@ export function Jewelry() {
               <div>
                 <div className="t-mono-cap mb-1.5" style={{ color: "var(--chrome)" }}>· ЦЕНА</div>
                 <div className="text-[1.4rem] md:text-[2.2rem] font-extrabold tracking-[-0.03em] leading-none">
-                  $ 485 000
+                  $ 19 800
                 </div>
                 <div className="t-mono-cap mt-2" style={{ color: "var(--chrome)" }}>+ trade-in зачётом</div>
               </div>

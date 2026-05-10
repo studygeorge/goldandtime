@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Fog, SparkleField } from "./primitives";
@@ -63,6 +64,26 @@ export function About() {
               Работаем напрямую с&nbsp;официальными дилерами 12&nbsp;maisons и&nbsp;крупнейшими
               аукционами Phillips, Christie&apos;s, Sotheby&apos;s. Все сделки — по&nbsp;NDA.
             </p>
+
+            <div className="relative mt-7 md:mt-10 aspect-[4/5] sm:aspect-[5/4] max-w-md bg-ink overflow-hidden border border-ink">
+              <Image
+                src="/lifestyle/atelier-watchmaker-1.jpg"
+                alt="Часовой мастер за работой в ателье Gold & Time"
+                fill
+                sizes="(max-width: 768px) 100vw, 480px"
+                className="object-cover"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: "linear-gradient(180deg, rgba(10,11,14,0) 55%, rgba(10,11,14,0.72) 100%)" }}
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end z-10">
+                <div className="t-mono-cap text-paper">· МАСТЕРСКАЯ</div>
+                <div className="t-mono-cap text-paper/80">24 ГОДА · СТАЖ</div>
+              </div>
+            </div>
+
             <div className="mt-7 md:mt-10 grid grid-cols-3 gap-4 max-w-md">
               {[["2 800+", "сделок"], ["12+", "maisons"], ["98%", "повторных"]].map(([v, k]) => (
                 <div key={k}>
